@@ -4,16 +4,15 @@ import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Personne {
+public class Personne extends Proprietaire {
 
-    private String nom;
     private String prenom;
     private String email;
     private Date dateNaissance; // dd-mm-YYYY
     private Personne conjoint;
 
     public Personne(String nom, String prenom, String email, String dateNaissance) {
-        this.nom = nom;
+        super(nom);
         this.prenom = prenom;
         this.email = email;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -22,14 +21,6 @@ public class Personne {
         } catch (ParseException e) {
             System.out.println("Erreur date de naissance ");
         }
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
     }
 
     public String getPrenom() {
@@ -63,7 +54,7 @@ public class Personne {
     @Override
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return this.prenom + " " + this.nom + ", né(e) le " + df.format(this.dateNaissance);
+        return this.prenom + " " + this.getNom() + ", né(e) le " + df.format(this.dateNaissance);
     }
 
     public int getAge() {

@@ -1,27 +1,27 @@
 package Compte;
 
-import Personne.Personne;
+import Personne.*;
 
 public class CompteEpargne extends Compte implements CompteInterface {
 
     private float tauxInterets = 0.03f;
     private float interet = 0;
 
-    public CompteEpargne(String numCompte, float solde, Personne proprietaire, float tauxInterets) {
+    public CompteEpargne(String numCompte, float solde, Proprietaire proprietaire, float tauxInterets) {
         super(numCompte, proprietaire, solde);
         this.tauxInterets = tauxInterets;
     }
 
-    public CompteEpargne(String numCompte, float solde, Personne proprietaire) {
+    public CompteEpargne(String numCompte, float solde, Proprietaire proprietaire) {
         super(numCompte, proprietaire, solde);
     }
 
-    public CompteEpargne(String numCompte, Personne proprietaire, float tauxInterets) {
+    public CompteEpargne(String numCompte, Proprietaire proprietaire, float tauxInterets) {
         super(numCompte, proprietaire);
         this.tauxInterets = tauxInterets;
     }
 
-    public CompteEpargne(String numCompte, Personne proprietaire) {
+    public CompteEpargne(String numCompte, Proprietaire proprietaire) {
         super(numCompte, proprietaire);
     }
 
@@ -31,7 +31,7 @@ public class CompteEpargne extends Compte implements CompteInterface {
 
     @Override
     public String toString() {
-        return "compte épargne numéro: " + this.numero + " de " + this.proprietaire.getPrenom() + " " + this.proprietaire.getNom() + ", solde: " + this.solde + ", intérêt: " + this.interet;
+        return "compte épargne numéro: " + this.numero + " de " + this.proprietaire.toString() + ", solde: " + this.solde + ", intérêt: " + this.interet;
     }
 
     public float getTauxInterets() {
