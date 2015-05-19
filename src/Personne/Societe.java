@@ -6,7 +6,7 @@ public class Societe extends Proprietaire {
 
     public Societe(String nom, String adresse) {
         super(nom);
-        this.adresse = this.adresse;
+        this.adresse = adresse;
     }
 
     public String getAdresse() {
