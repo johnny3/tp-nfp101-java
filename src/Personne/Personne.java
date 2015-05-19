@@ -48,13 +48,18 @@ public class Personne extends Proprietaire {
     }
 
     public Personne getConjoint() {
-        return conjoint;
+        return this.conjoint;
+    }
+    
+    @Override
+    public String getInfoLocalisation() {
+        return this.email;
     }
     
     @Override
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return this.prenom + " " + this.getNom() + ", né(e) le " + df.format(this.dateNaissance);
+        return this.prenom + " " + this.getNom() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getInfoLocalisation();
     }
 
     public int getAge() {
