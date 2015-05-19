@@ -4,8 +4,9 @@ public class Societe extends Proprietaire {
 
     private String adresse;
 
-    public Societe(String nom) {
+    public Societe(String nom, String adresse) {
         super(nom);
+        this.adresse = this.adresse;
     }
 
     public String getAdresse() {
