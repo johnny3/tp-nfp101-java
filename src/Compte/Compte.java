@@ -1,6 +1,6 @@
 package Compte;
 
-import Personne.Personne;
+import Personne.*;
 import Journal.Journal;
 import Operations.*;
 
@@ -10,7 +10,7 @@ public class Compte implements CompteInterface {
     protected float solde = 0;
     private int decouvertAutorise = 0;
     private final Journal journal = Journal.getInstance();
-    protected Personne proprietaire;
+    protected Proprietaire proprietaire;
     private final Operation historique[] = new Operation[10];
     private int head = 0;
     private int nbOperations = 0;
@@ -78,7 +78,7 @@ public class Compte implements CompteInterface {
 
     @Override
     public String toString() {
-        return "compte numéro: " + this.numero + " de " + this.proprietaire.getPrenom() + " " + this.proprietaire.getNom() + ", solde: " + this.solde + ", découvert autorisé: " + this.decouvertAutorise;
+        return "compte numéro: " + this.numero + " de " + this.proprietaire.toString() + ", solde: " + this.solde + ", découvert autorisé: " + this.decouvertAutorise;
     }
 
     public boolean virer(float montant, Compte compte) {

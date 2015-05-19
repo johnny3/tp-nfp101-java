@@ -31,7 +31,7 @@ public class CompteEpargne extends Compte implements CompteInterface {
 
     @Override
     public String toString() {
-        return "compte épargne numéro: " + this.numero + " de " + this.proprietaire.getPrenom() + " " + this.proprietaire.getNom() + ", solde: " + this.solde + ", intérêt: " + this.interet;
+        return "compte épargne numéro: " + this.numero + " de " + this.proprietaire.toString() + ", solde: " + this.solde + ", intérêt: " + this.interet;
     }
 
     public float getTauxInterets() {
