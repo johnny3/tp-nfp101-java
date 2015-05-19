@@ -15,4 +15,6 @@ public abstract class Proprietaire {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
+    public abstract String getInfoLocalisation();
 }
