@@ -33,7 +33,7 @@ public class Banque {
         return res;
     }
 
-    public int getCompte(String numCompte) {
+    public Compte getCompte(String numCompte) {
         for (int i = 0; i < this.nbComptes; i++) {
             if (this.comptes[i].getNumero().equals(numCompte)) {
                 return this.comptes[i];
@@ -41,6 +41,19 @@ public class Banque {
         }
 
         return null;
+    }
+
+    public int getIndexCompte(String numCompte) {
+        int indexCompte = -1;
+        for (int i = 0; i < this.nbComptes; i++) {
+            if (this.comptes[i].getNumero().equals(numCompte)) {
+                indexCompte = i;
+                break;
+            }
+        }
+
+        return indexCompte;
+        
     }
 
     public void majInteretsComptes() {
@@ -55,12 +68,13 @@ public class Banque {
         Compte compte = this.compteFactory.create(typeCompte, numCompte, solde, personne, decouvertAutorise, tauxInterets);
         this.comptes[this.nbComptes] = compte;
         this.nbComptes++;
-        
+
         return compte;
     }
 
-    public void suppressionCompte(int indexCompte) {
+    public void suppressionCompte(String numCompte) {
         Compte tempCompte[] = new Compte[this.nbMaxComptes];
+        int indexCompte = this.getIndexCompte(numCompte);
 
         for (int i = 0; i < indexCompte; i++) {
             tempCompte[i] = this.comptes[i];
