@@ -4,7 +4,7 @@ import Personne.*;
 import Compte.*;
 import Ihm.IhmTextCompte;
 
-public class TpPolymorphisme {
+public class TpInterface {
 
     /**
      * @param args the command line arguments
