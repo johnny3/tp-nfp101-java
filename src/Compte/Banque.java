@@ -33,19 +33,14 @@ public class Banque {
         return res;
     }
 
-    public int getIndexCompte(String numCompte) {
-        int index = -1;
+    public int getCompte(String numCompte) {
         for (int i = 0; i < this.nbComptes; i++) {
             if (this.comptes[i].getNumero().equals(numCompte)) {
-                index = i;
+                return this.comptes[i];
             }
         }
 
-        return index;
-    }
-
-    public Compte rechercheCompte(int indexCompte) {
-        return this.comptes[indexCompte];
+        return null;
     }
 
     public void majInteretsComptes() {

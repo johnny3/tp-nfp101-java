@@ -51,9 +51,9 @@ public class TpPolymorphisme {
                     System.out.println("Numéro du compte:");
                     numCompte = IhmTextCompte.lireString();
 
-                    indexCompte = banque.getIndexCompte(numCompte);
+                    Compte compteSearch = banque.getCompte(numCompte);
 
-                    if (-1 == indexCompte) {
+                    if (null == compteSearch) {
                         System.out.println("Solde du compte:");
                         solde = IhmTextCompte.lireInt();
 
@@ -88,9 +88,9 @@ public class TpPolymorphisme {
                 case 3: {
                     System.out.println("Numéro du compte à rechercher:");
                     numCompte = IhmTextCompte.lireString();
-                    indexCompte = banque.getIndexCompte(numCompte);
+                    Compte compteSearch = banque.getCompte(numCompte);
 
-                    if (-1 != indexCompte) {
+                    if (null != compteSearch) {
                         compte = banque.rechercheCompte(indexCompte);
                         System.out.println(compte.toString());
                     } else {
@@ -101,9 +101,9 @@ public class TpPolymorphisme {
                 case 4: {
                     System.out.println("Numéro du compte à supprimer:");
                     numCompte = IhmTextCompte.lireString();
-                    indexCompte = banque.getIndexCompte(numCompte);
+                    Compte compteSearch = banque.getCompte(numCompte);
 
-                    if (-1 != indexCompte) {
+                    if (null != compteSearch) {
                         banque.suppressionCompte(indexCompte);
                         System.out.println("Suppression réussie du compte numéro " + numCompte + "\n");
                     } else {
