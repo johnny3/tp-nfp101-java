@@ -4,7 +4,7 @@ import Personne.*;
 import Compte.*;
 import Ihm.IhmTextCompte;
 
-public class TpPolymorphisme {
+public class TpInterface {
 
     /**
      * @param args the command line arguments
@@ -13,6 +13,7 @@ public class TpPolymorphisme {
         String numCompte;
         Proprietaire proprietaire;
         int numPersonne;
+        int numSociete;
         int solde;
         float tauxInterets = 0f;
         int decouvertAutorise = 0;
@@ -83,11 +84,11 @@ public class TpPolymorphisme {
                             }
                         } else if (typeProprietaireChoix == 2) {
                             System.out.println("Propriétaire du compte: société 1 ou 2?");
-                            numPersonne = IhmTextCompte.lireInt();
+                            numSociete = IhmTextCompte.lireInt();
 
-                            if (numPersonne == 1) {
+                            if (numSociete == 1) {
                                 proprietaire = societe1;
-                            } else if (numPersonne == 2) {
+                            } else if (numSociete == 2) {
                                 proprietaire = societe2;
                             } else {
                                 System.out.println("Societe inconnue. Veuillez recommencer.");
