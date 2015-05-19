@@ -15,26 +15,26 @@ public class Compte implements CompteInterface {
     private int head = 0;
     private int nbOperations = 0;
 
-    public Compte(String numCompte, float solde, Personne proprietaire, int decouvertAutorise) {
+    public Compte(String numCompte, float solde, Proprietaire proprietaire, int decouvertAutorise) {
         this.numero = numCompte;
         this.solde = solde;
         this.decouvertAutorise = decouvertAutorise;
         this.proprietaire = proprietaire;
     }
 
-    public Compte(String numCompte, Personne proprietaire, int decouvertAutorise) {
+    public Compte(String numCompte, Proprietaire proprietaire, int decouvertAutorise) {
         this.numero = numCompte;
         this.decouvertAutorise = decouvertAutorise;
         this.proprietaire = proprietaire;
     }
 
-    public Compte(String numCompte, Personne proprietaire, float solde) {
+    public Compte(String numCompte, Proprietaire proprietaire, float solde) {
         this.numero = numCompte;
         this.solde = solde;
         this.proprietaire = proprietaire;
     }
 
-    public Compte(String numCompte, Personne proprietaire) {
+    public Compte(String numCompte, Proprietaire proprietaire) {
         this.numero = numCompte;
         this.proprietaire = proprietaire;
     }

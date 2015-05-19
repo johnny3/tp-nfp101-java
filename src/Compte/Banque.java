@@ -1,6 +1,6 @@
 package Compte;
 
-import Personne.Personne;
+import Personne.*;
 
 public class Banque {
 
@@ -64,8 +64,8 @@ public class Banque {
         }
     }
 
-    public Compte creerCompte(int typeCompte, String numCompte, int solde, Personne personne, int decouvertAutorise, float tauxInterets) {
-        Compte compte = this.compteFactory.create(typeCompte, numCompte, solde, personne, decouvertAutorise, tauxInterets);
+    public Compte creerCompte(int typeCompte, String numCompte, int solde, Proprietaire proprietaire, int decouvertAutorise, float tauxInterets) {
+        Compte compte = this.compteFactory.create(typeCompte, numCompte, solde, proprietaire, decouvertAutorise, tauxInterets);
         this.comptes[this.nbComptes] = compte;
         this.nbComptes++;
 

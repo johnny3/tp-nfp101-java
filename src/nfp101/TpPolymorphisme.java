@@ -1,6 +1,6 @@
 package nfp101;
 
-import Personne.Personne;
+import Personne.*;
 import Compte.*;
 import Ihm.IhmTextCompte;
 
@@ -11,17 +11,18 @@ public class TpPolymorphisme {
      */
     public static void main(String[] args) {
         String numCompte;
-        Personne personne;
+        Proprietaire proprietaire;
         int numPersonne;
         int solde;
         float tauxInterets = 0f;
         int decouvertAutorise = 0;
         int reponse = -1;
-        int indexCompte;
         Compte compte;
         IhmTextCompte ihmTextCompte = new IhmTextCompte();
-        Personne personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
-        Personne personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
+        Proprietaire personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
+        Proprietaire personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
+        Societe societe1 = new Societe("nomSociete1", "adresseSociete1");
+        Societe societe2 = new Societe("nomSociete2", "adresseSociete2");
         CompteFactory compteFactory = new CompteFactory();
         Banque banque = new Banque("banque", compteFactory);
 
@@ -65,19 +66,39 @@ public class TpPolymorphisme {
                             tauxInterets = ihmTextCompte.lireFloat();
                         }
 
-                        System.out.println("Propriétaire du compte: personne 1 ou 2?");
-                        numPersonne = IhmTextCompte.lireInt();
+                        System.out.println("Type de propriétaire: personne (1) ou société (2)?");
+                        int typeProprietaireChoix = IhmTextCompte.lireInt();
 
-                        if (numPersonne == 1) {
-                            personne = personne1;
-                        } else if (numPersonne == 2) {
-                            personne = personne2;
+                        if (typeProprietaireChoix == 1) {
+                            System.out.println("Propriétaire du compte: personne 1 ou 2?");
+                            numPersonne = IhmTextCompte.lireInt();
+
+                            if (numPersonne == 1) {
+                                proprietaire = personne1;
+                            } else if (numPersonne == 2) {
+                                proprietaire = personne2;
+                            } else {
+                                System.out.println("Personne inconnue. Veuillez recommencer.");
+                                break;
+                            }
+                        } else if (typeProprietaireChoix == 2) {
+                            System.out.println("Propriétaire du compte: société 1 ou 2?");
+                            numPersonne = IhmTextCompte.lireInt();
+
+                            if (numPersonne == 1) {
+                                proprietaire = societe1;
+                            } else if (numPersonne == 2) {
+                                proprietaire = societe2;
+                            } else {
+                                System.out.println("Societe inconnue. Veuillez recommencer.");
+                                break;
+                            }
                         } else {
                             System.out.println("Personne inconnue. Veuillez recommencer.");
                             break;
                         }
 
-                        compte = banque.creerCompte(typeCompte, numCompte, solde, personne, decouvertAutorise, tauxInterets);
+                        compte = banque.creerCompte(typeCompte, numCompte, solde, proprietaire, decouvertAutorise, tauxInterets);
 
                         System.out.println("Création réussie du " + compte.toString() + "\n");
                     } else {
