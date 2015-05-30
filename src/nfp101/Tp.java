@@ -193,7 +193,7 @@ public class Tp {
                     System.out.println("Numéro du compte:");
                     numCompte = IhmTextCompte.lireString();
                     compte = banque.getCompte(numCompte);
-                    System.out.println(compte.printOperations());
+                    System.out.println(compte.getHistorique());
                     break;
                 }
                 case 10: {
