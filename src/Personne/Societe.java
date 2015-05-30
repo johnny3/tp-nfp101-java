@@ -1,12 +1,26 @@
 package Personne;
 
-public class Societe extends Proprietaire {
+public class Societe implements Proprietaire {
 
+    private String nom;
     private String adresse;
 
     public Societe(String nom, String adresse) {
-        super(nom);
+        this.nom = nom;
         this.adresse = adresse;
+    }
+    
+    @Override
+    public String getIdentifiant() {
+        return this.nom;
+    }
+    
+    public String getNom() {
+        return this.nom;
+    }
+    
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getAdresse() {
@@ -24,6 +38,6 @@ public class Societe extends Proprietaire {
     
     @Override
     public String toString(){
-        return "société " + this.getNom() + ", basée à " + this.getInfoLocalisation();
+        return "société " + this.getIdentifiant() + ", basée à " + this.getInfoLocalisation();
     }
 }

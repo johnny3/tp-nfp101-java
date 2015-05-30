@@ -4,15 +4,16 @@ import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Personne extends Proprietaire {
+public class Personne implements Proprietaire {
 
+    private String nom;
     private String prenom;
     private String email;
     private Date dateNaissance; // dd-mm-YYYY
     private Personne conjoint;
 
     public Personne(String nom, String prenom, String email, String dateNaissance) {
-        super(nom);
+        this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -23,8 +24,22 @@ public class Personne extends Proprietaire {
         }
     }
 
+    @Override
+    public String getIdentifiant() {
+        return this.prenom + " " + this.nom;
+    }
+    
+    
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
     public String getPrenom() {
-        return prenom;
+        return this.prenom;
     }
 
     public void setPrenom(String prenom) {
@@ -32,7 +47,7 @@ public class Personne extends Proprietaire {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -59,7 +74,7 @@ public class Personne extends Proprietaire {
     @Override
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return this.prenom + " " + this.getNom() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getInfoLocalisation();
+        return this.getIdentifiant() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getInfoLocalisation();
     }
 
     public int getAge() {
