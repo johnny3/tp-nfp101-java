@@ -80,9 +80,15 @@ public class Compte implements CompteInterface {
         return "compte numéro: " + this.numero + " de " + this.proprietaire.toString() + ", solde: " + this.solde + ", découvert autorisé: " + this.decouvertAutorise;
     }
 
-    public String getHistorique() {
+    public String getHistoriqueOperations(TypeTri type) {
         String res = "";
         String separator = "\n";
+
+        if (TypeTri.montant == type) {
+            Collections.sort(this.historique, new AmountComparator());
+        } else {
+            Collections.sort(this.historique, new DateComparator());
+        }
 
         for (int i = 0; i < this.historique.size(); i++) {
             if (i == this.historique.size() - 1) {
@@ -135,5 +141,29 @@ public class Compte implements CompteInterface {
     public void crediter(float montant) {
         this.solde += montant;
         this.addOperation(TypeOperation.credit, montant);
+    }
+}
+
+class AmountComparator implements Comparator<Operation> {
+
+    @Override
+    public int compare(Operation op1, Operation op2) {
+        if (op2.getMontant() < op1.getMontant()) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+}
+
+class DateComparator implements Comparator<Operation> {
+
+    @Override
+    public int compare(Operation op1, Operation op2) {
+        if (op2.getDate().before(op1.getDate())) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

@@ -193,7 +193,19 @@ public class Tp {
                     System.out.println("Numéro du compte:");
                     numCompte = IhmTextCompte.lireString();
                     compte = banque.getCompte(numCompte);
-                    System.out.println(compte.getHistorique());
+
+                    System.out.println("Tri par date (1) ou montant (2)?");
+                    int typeTriChoix = IhmTextCompte.lireInt();
+                    TypeTri typeTri;
+                    if (1 == typeTriChoix) {
+                        typeTri = TypeTri.date;
+                    } else if (2 == typeTriChoix) {
+                        typeTri = TypeTri.montant;
+                    } else {
+                        System.out.println("Type incorrect");
+                        break;
+                    }
+                    System.out.println(compte.getHistoriqueOperations(typeTri));
                     break;
                 }
                 case 10: {
