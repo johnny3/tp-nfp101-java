@@ -27,13 +27,17 @@ public class Tp {
         CompteFactory compteFactory = new CompteFactory();
         Banque banque = new Banque("banque", compteFactory);
 
-        while (reponse != 6) {
+        while (reponse != 10) {
             System.out.println("1:affichage des comptes");
             System.out.println("2:création d'un compte");
-            System.out.println("3:recherche d'un compte");
-            System.out.println("4:suppression d'un compte");
-            System.out.println("5:mise à jour des intérêts");
-            System.out.println("6:fin");
+            System.out.println("3:créditer un compte");
+            System.out.println("4:débiter un compte");
+            System.out.println("5:virer de l'argent sur un compte");
+            System.out.println("6:recherche d'un compte");
+            System.out.println("7:suppression d'un compte");
+            System.out.println("8:mise à jour des intérêts");
+            System.out.println("9:Voir les opérations d'un compte");
+            System.out.println("10:fin");
 
             reponse = IhmTextCompte.lireInt();
             switch (reponse) {
@@ -108,6 +112,54 @@ public class Tp {
                     break;
                 }
                 case 3: {
+                    System.out.println("Numéro du compte:");
+                    numCompte = IhmTextCompte.lireString();
+                    compte = banque.getCompte(numCompte);
+                    if (null != compte) {
+                        System.out.println("Somme à créditer:");
+                        float somme = ihmTextCompte.lireFloat();
+                        compte.crediter(somme);
+                    } else {
+                        System.out.println("Ce compte n'existe pas.\n");
+                    }
+                    break;
+                }
+                case 4: {
+                    System.out.println("Numéro du compte:");
+                    numCompte = IhmTextCompte.lireString();
+                    compte = banque.getCompte(numCompte);
+                    if (null != compte) {
+                        System.out.println("Somme à débiter:");
+                        float somme = ihmTextCompte.lireFloat();
+                        compte.debiter(somme);
+                    } else {
+                        System.out.println("Ce compte n'existe pas.\n");
+                    }
+                    break;
+                }
+                case 5: {
+                    System.out.println("Numéro du compte à débiter:");
+                    numCompte = IhmTextCompte.lireString();
+                    Compte compteADebiter = banque.getCompte(numCompte);
+
+                    if (null != compteADebiter) {
+                        System.out.println("Numéro du compte à créditer:");
+                        numCompte = IhmTextCompte.lireString();
+                        Compte compteACrediter = banque.getCompte(numCompte);
+
+                        if (null != compteACrediter) {
+                            System.out.println("Somme à virer:");
+                            float somme = ihmTextCompte.lireFloat();
+                            compteADebiter.virer(somme, compteACrediter);
+                        } else {
+                            System.out.println("Ce compte n'existe pas.\n");
+                        }
+                    } else {
+                        System.out.println("Ce compte n'existe pas.\n");
+                    }
+                    break;
+                }
+                case 6: {
                     System.out.println("Numéro du compte à rechercher:");
                     numCompte = IhmTextCompte.lireString();
                     compte = banque.getCompte(numCompte);
@@ -119,7 +171,7 @@ public class Tp {
                     }
                     break;
                 }
-                case 4: {
+                case 7: {
                     System.out.println("Numéro du compte à supprimer:");
                     numCompte = IhmTextCompte.lireString();
                     compte = banque.getCompte(numCompte);
@@ -132,12 +184,31 @@ public class Tp {
                     }
                     break;
                 }
-                case 5: {
+                case 8: {
                     banque.majInteretsComptes();
                     System.out.println("Les intérêts de tous les comptes ont été mis à jour.");
                     break;
                 }
-                case 6: {
+                case 9: {
+                    System.out.println("Numéro du compte:");
+                    numCompte = IhmTextCompte.lireString();
+                    compte = banque.getCompte(numCompte);
+
+                    System.out.println("Tri par date (1) ou montant (2)?");
+                    int typeTriChoix = IhmTextCompte.lireInt();
+                    TypeTri typeTri;
+                    if (1 == typeTriChoix) {
+                        typeTri = TypeTri.date;
+                    } else if (2 == typeTriChoix) {
+                        typeTri = TypeTri.montant;
+                    } else {
+                        System.out.println("Type incorrect");
+                        break;
+                    }
+                    System.out.println(compte.getHistoriqueOperations(typeTri));
+                    break;
+                }
+                case 10: {
                     System.out.println("A bientôt");
                 }
 

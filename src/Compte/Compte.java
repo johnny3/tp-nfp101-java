@@ -3,6 +3,7 @@ package Compte;
 import Personne.*;
 import Journal.Journal;
 import Operations.*;
+import java.util.*;
 
 public class Compte implements CompteInterface {
 
@@ -11,9 +12,7 @@ public class Compte implements CompteInterface {
     private int decouvertAutorise = 0;
     private final Journal journal = Journal.getInstance();
     protected Proprietaire proprietaire;
-    private final Operation historique[] = new Operation[10];
-    private int head = 0;
-    private int nbOperations = 0;
+    private final ArrayList<Operation> historique = new ArrayList();
 
     public Compte(String numCompte, float solde, Proprietaire proprietaire, int decouvertAutorise) {
         this.numero = numCompte;
@@ -45,16 +44,16 @@ public class Compte implements CompteInterface {
 
     @Override
     public String getNumero() {
-        return numero;
+        return this.numero;
     }
 
     @Override
     public float getSolde() {
-        return solde;
+        return this.solde;
     }
 
     public int getDecouvertAutorise() {
-        return decouvertAutorise;
+        return this.decouvertAutorise;
     }
 
     @Override
@@ -81,16 +80,35 @@ public class Compte implements CompteInterface {
         return "compte numéro: " + this.numero + " de " + this.proprietaire.toString() + ", solde: " + this.solde + ", découvert autorisé: " + this.decouvertAutorise;
     }
 
+    public String getHistoriqueOperations(TypeTri type) {
+        String res = "";
+        String separator = "\n";
+
+        if (TypeTri.montant == type) {
+            Collections.sort(this.historique, new AmountComparator());
+        } else {
+            Collections.sort(this.historique, new DateComparator());
+        }
+
+        for (int i = 0; i < this.historique.size(); i++) {
+            if (i == this.historique.size() - 1) {
+                separator = "";
+            }
+            res += this.historique.get(i).toString() + separator;
+        }
+
+        return res;
+    }
+
     public boolean virer(float montant, Compte compte) {
         boolean virementFait = false;
         if (this.isDebitable(montant)) {
             this.debiter(montant);
-            Operation op = new Operation(TypeOperation.debit, montant);
-            this.push(op);
+            this.addOperation(TypeOperation.debit, montant);
             compte.crediter(montant);
             virementFait = true;
         } else {
-            journal.logError("Virement échoué. La somme " + montant + "€ ne peut être viré du compte " + this.numero + " vers le compte numero " + compte.numero + " car son solde est de " + this.solde + "€ et son découvert autorisé s'élève à " + this.decouvertAutorise + "€.");
+            this.journal.logError("Virement échoué. La somme " + montant + "€ ne peut être viré du compte " + this.numero + " vers le compte numero " + compte.numero + " car son solde est de " + this.solde + "€ et son découvert autorisé s'élève à " + this.decouvertAutorise + "€.");
         }
 
         return virementFait;
@@ -109,45 +127,43 @@ public class Compte implements CompteInterface {
     public void debiter(float montant) {
         if (this.isDebitable(montant)) {
             this.solde -= montant;
-            Operation op = new Operation(TypeOperation.debit, montant);
-            this.push(op);
+            this.addOperation(TypeOperation.debit, montant);
         } else {
-            journal.logError("Désolé, le compte numero " + this.numero + " ne peut être débité de la somme " + montant + "€ car son solde est de " + this.solde + "€ et son découvert autorisé " + this.decouvertAutorise + "€.");
+            this.journal.logError("Désolé, le compte numero " + this.numero + " ne peut être débité de la somme " + montant + "€ car son solde est de " + this.solde + "€ et son découvert autorisé " + this.decouvertAutorise + "€.");
         }
+    }
+
+    public void addOperation(TypeOperation typeOperation, float montant) {
+        Operation op = new Operation(typeOperation, montant);
+        this.historique.add(op);
     }
 
     public void crediter(float montant) {
         this.solde += montant;
-        Operation op = new Operation(TypeOperation.credit, montant);
-        this.push(op);
+        this.addOperation(TypeOperation.credit, montant);
     }
+}
 
-    private void push(Operation op) {
-        this.historique[this.head] = op;
-        this.head++;
-        this.nbOperations++;
+class AmountComparator implements Comparator<Operation> {
 
-        // si on a atteint 11 opérations, on réinitialise à 10 pour éviter une 
-        // erreur de sortie du tableau lors du parcours du tableau dans printOperations
-        if (this.nbOperations > this.historique.length) {
-            this.nbOperations = this.historique.length;
-        }
-        if (this.head == 10) { // si on a atteint la limite, on réinitialise pour écraser les valeurs du début du tableau
-            this.head = 0;
+    @Override
+    public int compare(Operation op1, Operation op2) {
+        if (op2.getMontant() < op1.getMontant()) {
+            return 1;
+        } else {
+            return -1;
         }
     }
+}
 
-    public String printOperations() {
-        String res = "";
-        String separator = "\n";
+class DateComparator implements Comparator<Operation> {
 
-        for (int i = 0; i < this.nbOperations; i++) {
-            if (i == this.nbOperations - 1) {
-                separator = "";
-            }
-            res += this.historique[i].toString() + separator;
+    @Override
+    public int compare(Operation op1, Operation op2) {
+        if (op2.getDate().before(op1.getDate())) {
+            return 1;
+        } else {
+            return -1;
         }
-
-        return res;
     }
 }
