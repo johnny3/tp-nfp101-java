@@ -3,7 +3,7 @@ package Compte;
 import Personne.*;
 import Journal.Journal;
 import Operations.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Compte implements CompteInterface {
 
@@ -12,10 +12,7 @@ public class Compte implements CompteInterface {
     private int decouvertAutorise = 0;
     private final Journal journal = Journal.getInstance();
     protected Proprietaire proprietaire;
-//    private final Operation historique[] = new Operation[10];
     private final ArrayList<Operation> historique = new ArrayList();
-//    private int head = 0;
-//    private int nbOperations = 0;
 
     public Compte(String numCompte, float solde, Proprietaire proprietaire, int decouvertAutorise) {
         this.numero = numCompte;
@@ -47,16 +44,16 @@ public class Compte implements CompteInterface {
 
     @Override
     public String getNumero() {
-        return numero;
+        return this.numero;
     }
 
     @Override
     public float getSolde() {
-        return solde;
+        return this.solde;
     }
 
     public int getDecouvertAutorise() {
-        return decouvertAutorise;
+        return this.decouvertAutorise;
     }
 
     @Override
@@ -83,7 +80,7 @@ public class Compte implements CompteInterface {
         return "compte numéro: " + this.numero + " de " + this.proprietaire.toString() + ", solde: " + this.solde + ", découvert autorisé: " + this.decouvertAutorise;
     }
 
-    public String printOperations() {
+    public String getHistorique() {
         String res = "";
         String separator = "\n";
 
@@ -102,11 +99,10 @@ public class Compte implements CompteInterface {
         if (this.isDebitable(montant)) {
             this.debiter(montant);
             this.addOperation(TypeOperation.debit, montant);
-//            this.push(op);
             compte.crediter(montant);
             virementFait = true;
         } else {
-            journal.logError("Virement échoué. La somme " + montant + "€ ne peut être viré du compte " + this.numero + " vers le compte numero " + compte.numero + " car son solde est de " + this.solde + "€ et son découvert autorisé s'élève à " + this.decouvertAutorise + "€.");
+            this.journal.logError("Virement échoué. La somme " + montant + "€ ne peut être viré du compte " + this.numero + " vers le compte numero " + compte.numero + " car son solde est de " + this.solde + "€ et son découvert autorisé s'élève à " + this.decouvertAutorise + "€.");
         }
 
         return virementFait;
@@ -126,9 +122,8 @@ public class Compte implements CompteInterface {
         if (this.isDebitable(montant)) {
             this.solde -= montant;
             this.addOperation(TypeOperation.debit, montant);
-//            this.push(op);
         } else {
-            journal.logError("Désolé, le compte numero " + this.numero + " ne peut être débité de la somme " + montant + "€ car son solde est de " + this.solde + "€ et son découvert autorisé " + this.decouvertAutorise + "€.");
+            this.journal.logError("Désolé, le compte numero " + this.numero + " ne peut être débité de la somme " + montant + "€ car son solde est de " + this.solde + "€ et son découvert autorisé " + this.decouvertAutorise + "€.");
         }
     }
 
@@ -140,20 +135,5 @@ public class Compte implements CompteInterface {
     public void crediter(float montant) {
         this.solde += montant;
         this.addOperation(TypeOperation.credit, montant);
-//        this.push(op);
     }
-
-//    private void push(Operation op) {
-//        this.historique[this.head] = op;
-//        this.head++;
-//        this.nbOperations++;
-    // si on a atteint 11 opérations, on réinitialise à 10 pour éviter une 
-    // erreur de sortie du tableau lors du parcours du tableau dans printOperations
-//        if (this.nbOperations > this.historique.length) {
-//            this.nbOperations = this.historique.length;
-//        }
-//        if (this.head == 10) { // si on a atteint la limite, on réinitialise pour écraser les valeurs du début du tableau
-//            this.head = 0;
-//        }
-//    }
 }
