@@ -3,6 +3,8 @@ package nfp101;
 import Personne.*;
 import Compte.*;
 import Ihm.IhmTextCompte;
+import Exceptions.*;
+import Operations.*;
 
 public class Tp {
 
@@ -131,7 +133,11 @@ public class Tp {
                     if (null != compte) {
                         System.out.println("Somme à débiter:");
                         float somme = ihmTextCompte.lireFloat();
-                        compte.debiter(somme);
+                        try {
+                            compte.debiter(somme);
+                        } catch (InvalidDebitException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else {
                         System.out.println("Ce compte n'existe pas.\n");
                     }
@@ -150,7 +156,13 @@ public class Tp {
                         if (null != compteACrediter) {
                             System.out.println("Somme à virer:");
                             float somme = ihmTextCompte.lireFloat();
-                            compteADebiter.virer(somme, compteACrediter);
+                            try {
+                                compteADebiter.debiter(somme);
+                                compteADebiter.addOperation(TypeOperation.debit, somme);
+                                compteACrediter.crediter(somme);
+                            } catch (InvalidDebitException e) {
+                                System.out.println(e.getMessage());
+                            }
                         } else {
                             System.out.println("Ce compte n'existe pas.\n");
                         }
@@ -177,10 +189,12 @@ public class Tp {
                     compte = banque.getCompte(numCompte);
 
                     if (null != compte) {
-                        banque.suppressionCompte(numCompte);
-                        System.out.println("Suppression réussie du compte numéro " + numCompte + "\n");
-                    } else {
-                        System.out.println("Ce compte n'existe pas.\n");
+                        try {
+                            banque.suppressionCompte(numCompte);
+                            System.out.println("Suppression réussie du compte numéro " + numCompte + "\n");
+                        } catch (InvalidSuppressionException e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                     break;
                 }

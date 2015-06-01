@@ -2,6 +2,7 @@ package Compte;
 
 import Personne.*;
 import java.util.*;
+import Exceptions.*;
 
 public class Banque {
     private String nom;
@@ -56,9 +57,11 @@ public class Banque {
         return compte;
     }
 
-    public void suppressionCompte(String numCompte) {
+    public void suppressionCompte(String numCompte) throws InvalidSuppressionException {
         if (this.comptes.containsKey(numCompte)) {
             this.comptes.remove(numCompte);
+        } else {
+            throw new InvalidSuppressionException("Ce compte n'existe pas.\n");
         }
     }
 }

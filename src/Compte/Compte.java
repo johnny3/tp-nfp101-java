@@ -1,9 +1,11 @@
 package Compte;
 
+import Exceptions.InvalidDebitException;
 import Personne.*;
 import Journal.Journal;
 import Operations.*;
 import java.util.*;
+import Exceptions.*;
 
 public class Compte implements CompteInterface {
 
@@ -100,20 +102,6 @@ public class Compte implements CompteInterface {
         return res;
     }
 
-    public boolean virer(float montant, Compte compte) {
-        boolean virementFait = false;
-        if (this.isDebitable(montant)) {
-            this.debiter(montant);
-            this.addOperation(TypeOperation.debit, montant);
-            compte.crediter(montant);
-            virementFait = true;
-        } else {
-            this.journal.logError("Virement échoué. La somme " + montant + "€ ne peut être viré du compte " + this.numero + " vers le compte numero " + compte.numero + " car son solde est de " + this.solde + "€ et son découvert autorisé s'élève à " + this.decouvertAutorise + "€.");
-        }
-
-        return virementFait;
-    }
-
     public boolean isDebitable(float montant) {
         boolean debitable = false;
 
@@ -124,12 +112,13 @@ public class Compte implements CompteInterface {
         return debitable;
     }
 
-    public void debiter(float montant) {
+    public void debiter(float montant) throws InvalidDebitException {
         if (this.isDebitable(montant)) {
             this.solde -= montant;
             this.addOperation(TypeOperation.debit, montant);
         } else {
             this.journal.logError("Désolé, le compte numero " + this.numero + " ne peut être débité de la somme " + montant + "€ car son solde est de " + this.solde + "€ et son découvert autorisé " + this.decouvertAutorise + "€.");
+            throw new InvalidDebitException("Débit impossible");
         }
     }
 
@@ -141,29 +130,5 @@ public class Compte implements CompteInterface {
     public void crediter(float montant) {
         this.solde += montant;
         this.addOperation(TypeOperation.credit, montant);
-    }
-}
-
-class AmountComparator implements Comparator<Operation> {
-
-    @Override
-    public int compare(Operation op1, Operation op2) {
-        if (op2.getMontant() < op1.getMontant()) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-}
-
-class DateComparator implements Comparator<Operation> {
-
-    @Override
-    public int compare(Operation op1, Operation op2) {
-        if (op2.getDate().before(op1.getDate())) {
-            return 1;
-        } else {
-            return -1;
-        }
     }
 }
