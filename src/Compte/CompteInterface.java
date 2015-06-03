@@ -1,6 +1,6 @@
 package Compte;
 
-import Personne.Personne;
+import Personne.*;
 
 public interface CompteInterface {
 
@@ -12,5 +12,5 @@ public interface CompteInterface {
 
     public void setSolde(float solde);
 
-    public void setProprietaire(Personne proprietaire);
+    public void setProprietaire(ProprietaireInterface proprietaire);
 }

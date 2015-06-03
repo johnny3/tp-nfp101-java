@@ -2,7 +2,6 @@ package Personne;
 
 public class Societe extends ProprietaireNom {
 
-    private String nom;
     private String adresse;
 
     public Societe(String nom, String adresse) {
@@ -12,7 +11,7 @@ public class Societe extends ProprietaireNom {
     
     @Override
     public String getIdentifiant() {
-        return this.nom;
+        return this.getNom();
     }
 
     public String getAdresse() {

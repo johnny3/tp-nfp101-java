@@ -50,7 +50,7 @@ public class Banque {
         }
     }
 
-    public Compte creerCompte(int typeCompte, String numCompte, int solde, Proprietaire proprietaire, int decouvertAutorise, float tauxInterets) {
+    public Compte creerCompte(int typeCompte, String numCompte, int solde, ProprietaireInterface proprietaire, int decouvertAutorise, float tauxInterets) {
         Compte compte = this.compteFactory.create(typeCompte, numCompte, solde, proprietaire, decouvertAutorise, tauxInterets);
         this.comptes.put(compte.getNumero(), compte);
 

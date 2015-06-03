@@ -13,7 +13,7 @@ public class Tp {
      */
     public static void main(String[] args) {
         String numCompte;
-        Proprietaire proprietaire;
+        ProprietaireInterface proprietaire;
         int numPersonne;
         int numSociete;
         int solde;
@@ -22,10 +22,10 @@ public class Tp {
         int reponse = -1;
         Compte compte;
         IhmTextCompte ihmTextCompte = new IhmTextCompte();
-        Proprietaire personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
-        Proprietaire personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
-        Proprietaire societe1 = new Societe("nomSociete1", "adresseSociete1");
-        Proprietaire societe2 = new Societe("nomSociete2", "adresseSociete2");
+        ProprietaireInterface personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
+        ProprietaireInterface personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
+        ProprietaireInterface societe1 = new Societe("nomSociete1", "adresseSociete1");
+        ProprietaireInterface societe2 = new Societe("nomSociete2", "adresseSociete2");
         CompteFactory compteFactory = new CompteFactory();
         Banque banque = new Banque("banque", compteFactory);
 

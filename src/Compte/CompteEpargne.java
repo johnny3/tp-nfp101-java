@@ -7,21 +7,21 @@ public class CompteEpargne extends Compte implements CompteInterface {
     private float tauxInterets = 0.03f;
     private float interet = 0;
 
-    public CompteEpargne(String numCompte, float solde, Proprietaire proprietaire, float tauxInterets) {
+    public CompteEpargne(String numCompte, float solde, ProprietaireInterface proprietaire, float tauxInterets) {
         super(numCompte, proprietaire, solde);
         this.tauxInterets = tauxInterets;
     }
 
-    public CompteEpargne(String numCompte, float solde, Proprietaire proprietaire) {
+    public CompteEpargne(String numCompte, float solde, ProprietaireInterface proprietaire) {
         super(numCompte, proprietaire, solde);
     }
 
-    public CompteEpargne(String numCompte, Proprietaire proprietaire, float tauxInterets) {
+    public CompteEpargne(String numCompte, ProprietaireInterface proprietaire, float tauxInterets) {
         super(numCompte, proprietaire);
         this.tauxInterets = tauxInterets;
     }
 
-    public CompteEpargne(String numCompte, Proprietaire proprietaire) {
+    public CompteEpargne(String numCompte, ProprietaireInterface proprietaire) {
         super(numCompte, proprietaire);
     }
 

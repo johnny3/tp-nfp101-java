@@ -1,6 +1,6 @@
 package Personne;
 
-public abstract class ProprietaireNom implements Proprietaire {
+public abstract class ProprietaireNom implements ProprietaireInterface {
 
     private String nom;
 

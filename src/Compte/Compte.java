@@ -13,29 +13,29 @@ public class Compte implements CompteInterface {
     protected float solde = 0;
     private int decouvertAutorise = 0;
     private final Journal journal = Journal.getInstance();
-    protected Proprietaire proprietaire;
+    protected ProprietaireInterface proprietaire;
     private final ArrayList<Operation> historique = new ArrayList();
 
-    public Compte(String numCompte, float solde, Proprietaire proprietaire, int decouvertAutorise) {
+    public Compte(String numCompte, float solde, ProprietaireInterface proprietaire, int decouvertAutorise) {
         this.numero = numCompte;
         this.solde = solde;
         this.decouvertAutorise = decouvertAutorise;
         this.proprietaire = proprietaire;
     }
 
-    public Compte(String numCompte, Proprietaire proprietaire, int decouvertAutorise) {
+    public Compte(String numCompte, ProprietaireInterface proprietaire, int decouvertAutorise) {
         this.numero = numCompte;
         this.decouvertAutorise = decouvertAutorise;
         this.proprietaire = proprietaire;
     }
 
-    public Compte(String numCompte, Proprietaire proprietaire, float solde) {
+    public Compte(String numCompte, ProprietaireInterface proprietaire, float solde) {
         this.numero = numCompte;
         this.solde = solde;
         this.proprietaire = proprietaire;
     }
 
-    public Compte(String numCompte, Proprietaire proprietaire) {
+    public Compte(String numCompte, ProprietaireInterface proprietaire) {
         this.numero = numCompte;
         this.proprietaire = proprietaire;
     }
@@ -73,7 +73,7 @@ public class Compte implements CompteInterface {
     }
 
     @Override
-    public void setProprietaire(Personne proprietaire) {
+    public void setProprietaire(ProprietaireInterface proprietaire) {
         this.proprietaire = proprietaire;
     }
 

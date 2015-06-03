@@ -1,6 +1,6 @@
 package Personne;
 
-public interface Proprietaire {
+public interface ProprietaireInterface {
 
     public String getIdentifiant();
 
