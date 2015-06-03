@@ -2,6 +2,7 @@ package Compte;
 
 import Personne.*;
 import java.util.*;
+import Exceptions.*;
 
 public class Banque {
     private String nom;
@@ -49,16 +50,18 @@ public class Banque {
         }
     }
 
-    public Compte creerCompte(int typeCompte, String numCompte, int solde, Proprietaire proprietaire, int decouvertAutorise, float tauxInterets) {
+    public Compte creerCompte(int typeCompte, String numCompte, int solde, ProprietaireInterface proprietaire, int decouvertAutorise, float tauxInterets) {
         Compte compte = this.compteFactory.create(typeCompte, numCompte, solde, proprietaire, decouvertAutorise, tauxInterets);
         this.comptes.put(compte.getNumero(), compte);
 
         return compte;
     }
 
-    public void suppressionCompte(String numCompte) {
+    public void suppressionCompte(String numCompte) throws InvalidSuppressionException {
         if (this.comptes.containsKey(numCompte)) {
             this.comptes.remove(numCompte);
+        } else {
+            throw new InvalidSuppressionException("Ce compte n'existe pas.\n");
         }
     }
 }

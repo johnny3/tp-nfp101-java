@@ -3,6 +3,8 @@ package nfp101;
 import Personne.*;
 import Compte.*;
 import Ihm.IhmTextCompte;
+import Exceptions.*;
+import Operations.*;
 
 public class Tp {
 
@@ -11,7 +13,7 @@ public class Tp {
      */
     public static void main(String[] args) {
         String numCompte;
-        Proprietaire proprietaire;
+        ProprietaireInterface proprietaire;
         int numPersonne;
         int numSociete;
         int solde;
@@ -20,10 +22,10 @@ public class Tp {
         int reponse = -1;
         Compte compte;
         IhmTextCompte ihmTextCompte = new IhmTextCompte();
-        Proprietaire personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
-        Proprietaire personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
-        Proprietaire societe1 = new Societe("nomSociete1", "adresseSociete1");
-        Proprietaire societe2 = new Societe("nomSociete2", "adresseSociete2");
+        ProprietaireInterface personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
+        ProprietaireInterface personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
+        ProprietaireInterface societe1 = new Societe("nomSociete1", "adresseSociete1");
+        ProprietaireInterface societe2 = new Societe("nomSociete2", "adresseSociete2");
         CompteFactory compteFactory = new CompteFactory();
         Banque banque = new Banque("banque", compteFactory);
 
@@ -131,7 +133,11 @@ public class Tp {
                     if (null != compte) {
                         System.out.println("Somme à débiter:");
                         float somme = ihmTextCompte.lireFloat();
-                        compte.debiter(somme);
+                        try {
+                            compte.debiter(somme);
+                        } catch (InvalidDebitException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else {
                         System.out.println("Ce compte n'existe pas.\n");
                     }
@@ -150,7 +156,13 @@ public class Tp {
                         if (null != compteACrediter) {
                             System.out.println("Somme à virer:");
                             float somme = ihmTextCompte.lireFloat();
-                            compteADebiter.virer(somme, compteACrediter);
+                            try {
+                                compteADebiter.debiter(somme);
+                                compteADebiter.addOperation(TypeOperation.debit, somme);
+                                compteACrediter.crediter(somme);
+                            } catch (InvalidDebitException e) {
+                                System.out.println(e.getMessage());
+                            }
                         } else {
                             System.out.println("Ce compte n'existe pas.\n");
                         }
@@ -177,10 +189,12 @@ public class Tp {
                     compte = banque.getCompte(numCompte);
 
                     if (null != compte) {
-                        banque.suppressionCompte(numCompte);
-                        System.out.println("Suppression réussie du compte numéro " + numCompte + "\n");
-                    } else {
-                        System.out.println("Ce compte n'existe pas.\n");
+                        try {
+                            banque.suppressionCompte(numCompte);
+                            System.out.println("Suppression réussie du compte numéro " + numCompte + "\n");
+                        } catch (InvalidSuppressionException e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                     break;
                 }

@@ -4,16 +4,14 @@ import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Personne implements Proprietaire {
-
-    private String nom;
+public class Personne extends ProprietaireNom {
     private String prenom;
     private String email;
     private Date dateNaissance; // dd-mm-YYYY
     private Personne conjoint;
 
     public Personne(String nom, String prenom, String email, String dateNaissance) {
-        this.nom = nom;
+        super(nom);
         this.prenom = prenom;
         this.email = email;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -26,16 +24,7 @@ public class Personne implements Proprietaire {
 
     @Override
     public String getIdentifiant() {
-        return this.prenom + " " + this.nom;
-    }
-    
-    
-    public String getNom() {
-        return this.nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
+        return this.prenom + " " + this.getNom();
     }
 
     public String getPrenom() {
@@ -67,14 +56,14 @@ public class Personne implements Proprietaire {
     }
     
     @Override
-    public String getInfoLocalisation() {
+    public String getContact() {
         return this.email;
     }
     
     @Override
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return this.getIdentifiant() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getInfoLocalisation();
+        return this.getIdentifiant() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getContact();
     }
 
     public int getAge() {
