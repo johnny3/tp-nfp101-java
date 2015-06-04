@@ -15,4 +15,24 @@ public abstract class ProprietaireNom implements ProprietaireInterface {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    @Override
+    public Object getIdentifiant() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object getContact() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setIdentifiant(Object identifiant) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setContact(Object contact) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Personne extends ProprietaireNom {
+
     private String prenom;
     private String email;
     private Date dateNaissance; // dd-mm-YYYY
@@ -25,6 +26,27 @@ public class Personne extends ProprietaireNom {
     @Override
     public String getIdentifiant() {
         return this.prenom + " " + this.getNom();
+    }
+
+    @Override
+    public String getContact() {
+        return this.email;
+    }
+
+    @Override
+    public void setIdentifiant(Object identifiant) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setContact(Object contact) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return this.getIdentifiant() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getContact();
     }
 
     public String getPrenom() {
@@ -53,17 +75,6 @@ public class Personne extends ProprietaireNom {
 
     public Personne getConjoint() {
         return this.conjoint;
-    }
-    
-    @Override
-    public String getContact() {
-        return this.email;
-    }
-    
-    @Override
-    public String toString() {
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return this.getIdentifiant() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getContact();
     }
 
     public int getAge() {
@@ -98,7 +109,7 @@ public class Personne extends ProprietaireNom {
         }
         return mariageFait;
     }
-    
+
     public boolean estMarie() {
         boolean estMarie = false;
         if (null != this.conjoint) {

@@ -13,14 +13,6 @@ public class Societe extends ProprietaireNom {
     public String getIdentifiant() {
         return this.getNom();
     }
-
-    public String getAdresse() {
-        return this.adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
     
     @Override
     public String getContact() {
@@ -28,7 +20,25 @@ public class Societe extends ProprietaireNom {
     }
     
     @Override
+    public void setIdentifiant(Object identifiant) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setContact(Object contact) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
     public String toString(){
         return "société " + this.getIdentifiant() + ", basée à " + this.getContact();
+    }
+
+    public String getAdresse() {
+        return this.adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 }

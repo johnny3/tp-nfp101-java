@@ -5,6 +5,7 @@ import Compte.*;
 import Ihm.IhmTextCompte;
 import Exceptions.*;
 import Operations.*;
+import java.text.SimpleDateFormat;
 
 public class Tp {
 
@@ -22,8 +23,14 @@ public class Tp {
         int reponse = -1;
         Compte compte;
         IhmTextCompte ihmTextCompte = new IhmTextCompte();
-        ProprietaireInterface personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Personne personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
+//        personne1.setContact(personne1.getEmail());
+//        personne1.setIdentifiant(personne1.getPrenom() + " " + personne1.getNom());
+
         ProprietaireInterface personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
+//        personne2.setIdentifiant(df.format(personne1.getDateNaissance()));
+
         ProprietaireInterface societe1 = new Societe("nomSociete1", "adresseSociete1");
         ProprietaireInterface societe2 = new Societe("nomSociete2", "adresseSociete2");
         CompteFactory compteFactory = new CompteFactory();
@@ -186,15 +193,13 @@ public class Tp {
                 case 7: {
                     System.out.println("Numéro du compte à supprimer:");
                     numCompte = IhmTextCompte.lireString();
-                    compte = banque.getCompte(numCompte);
+//                    compte = banque.getCompte(numCompte);
 
-                    if (null != compte) {
-                        try {
-                            banque.suppressionCompte(numCompte);
-                            System.out.println("Suppression réussie du compte numéro " + numCompte + "\n");
-                        } catch (InvalidSuppressionException e) {
-                            System.out.println(e.getMessage());
-                        }
+                    try {
+                        banque.suppressionCompte(numCompte);
+                        System.out.println("Suppression réussie du compte numéro " + numCompte + "\n");
+                    } catch (InvalidSuppressionException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
                 }
@@ -208,20 +213,25 @@ public class Tp {
                     numCompte = IhmTextCompte.lireString();
                     compte = banque.getCompte(numCompte);
 
-                    System.out.println("Tri par date (1) ou montant (2)?");
-                    int typeTriChoix = IhmTextCompte.lireInt();
-                    TypeTri typeTri;
-                    if (1 == typeTriChoix) {
-                        typeTri = TypeTri.date;
-                    } else if (2 == typeTriChoix) {
-                        typeTri = TypeTri.montant;
+                    if (null != compte) {
+                        System.out.println("Tri par date (1) ou montant (2)?");
+                        int typeTriChoix = IhmTextCompte.lireInt();
+                        TypeTri typeTri;
+                        if (1 == typeTriChoix) {
+                            typeTri = TypeTri.date;
+                        } else if (2 == typeTriChoix) {
+                            typeTri = TypeTri.montant;
+                        } else {
+                            System.out.println("Type incorrect");
+                            break;
+                        }
+                        System.out.println(compte.getHistoriqueOperations(typeTri));
                     } else {
-                        System.out.println("Type incorrect");
-                        break;
+                        System.out.println("Ce compte n'existe pas.\n");
                     }
-                    System.out.println(compte.getHistoriqueOperations(typeTri));
                     break;
                 }
+
                 case 10: {
                     System.out.println("A bientôt");
                 }
