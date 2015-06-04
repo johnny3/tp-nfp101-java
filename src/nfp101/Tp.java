@@ -24,13 +24,8 @@ public class Tp {
         Compte compte;
         IhmTextCompte ihmTextCompte = new IhmTextCompte();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        Personne personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
-//        personne1.setContact(personne1.getEmail());
-//        personne1.setIdentifiant(personne1.getPrenom() + " " + personne1.getNom());
-
+        ProprietaireInterface personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
         ProprietaireInterface personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
-//        personne2.setIdentifiant(df.format(personne1.getDateNaissance()));
-
         ProprietaireInterface societe1 = new Societe("nomSociete1", "adresseSociete1");
         ProprietaireInterface societe2 = new Societe("nomSociete2", "adresseSociete2");
         CompteFactory compteFactory = new CompteFactory();

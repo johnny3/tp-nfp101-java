@@ -4,15 +4,16 @@ import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Personne extends ProprietaireNom {
+public class Personne implements ProprietaireInterface<String, String> {
 
     private String prenom;
     private String email;
     private Date dateNaissance; // dd-mm-YYYY
     private Personne conjoint;
+    private String nom;
 
     public Personne(String nom, String prenom, String email, String dateNaissance) {
-        super(nom);
+        this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -33,14 +34,12 @@ public class Personne extends ProprietaireNom {
         return this.email;
     }
 
-    @Override
-    public void setIdentifiant(Object identifiant) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getNom() {
+        return this.nom;
     }
 
-    @Override
-    public void setContact(Object contact) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     @Override

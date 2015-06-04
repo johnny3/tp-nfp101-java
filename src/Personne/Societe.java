@@ -1,36 +1,35 @@
 package Personne;
 
-public class Societe extends ProprietaireNom {
+public class Societe implements ProprietaireInterface<Integer, String> {
 
     private String adresse;
+    private String nom;
 
     public Societe(String nom, String adresse) {
-        super(nom);
+        this.nom = nom;
         this.adresse = adresse;
     }
-    
-    @Override
-    public String getIdentifiant() {
-        return this.getNom();
+
+    public String getNom() {
+        return this.nom;
     }
-    
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    @Override
+    public Integer getIdentifiant() {
+        return 123;
+    }
+
     @Override
     public String getContact() {
         return this.adresse;
     }
-    
-    @Override
-    public void setIdentifiant(Object identifiant) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
-    public void setContact(Object contact) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    @Override
-    public String toString(){
+    public String toString() {
         return "société " + this.getIdentifiant() + ", basée à " + this.getContact();
     }
 
