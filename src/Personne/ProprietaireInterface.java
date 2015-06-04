@@ -1,8 +1,8 @@
 package Personne;
 
-public interface ProprietaireInterface {
+public interface ProprietaireInterface<T, E> {
 
-    public String getIdentifiant();
+    public T getIdentifiant();
 
-    public String getContact();
+    public E getContact();
 }

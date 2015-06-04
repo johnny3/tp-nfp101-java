@@ -4,14 +4,16 @@ import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Personne extends ProprietaireNom {
+public class Personne implements ProprietaireInterface<String, String> {
+
     private String prenom;
     private String email;
     private Date dateNaissance; // dd-mm-YYYY
     private Personne conjoint;
+    private String nom;
 
     public Personne(String nom, String prenom, String email, String dateNaissance) {
-        super(nom);
+        this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -25,6 +27,25 @@ public class Personne extends ProprietaireNom {
     @Override
     public String getIdentifiant() {
         return this.prenom + " " + this.getNom();
+    }
+
+    @Override
+    public String getContact() {
+        return this.email;
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return this.getIdentifiant() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getContact();
     }
 
     public String getPrenom() {
@@ -53,17 +74,6 @@ public class Personne extends ProprietaireNom {
 
     public Personne getConjoint() {
         return this.conjoint;
-    }
-    
-    @Override
-    public String getContact() {
-        return this.email;
-    }
-    
-    @Override
-    public String toString() {
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        return this.getIdentifiant() + ", né(e) le " + df.format(this.dateNaissance) + ", email " + this.getContact();
     }
 
     public int getAge() {
@@ -98,7 +108,7 @@ public class Personne extends ProprietaireNom {
         }
         return mariageFait;
     }
-    
+
     public boolean estMarie() {
         boolean estMarie = false;
         if (null != this.conjoint) {
