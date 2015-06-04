@@ -2,7 +2,7 @@ package Compte;
 
 import Personne.*;
 
-public class CompteEpargne extends Compte implements CompteInterface {
+public class CompteEpargne extends Compte {
 
     private float tauxInterets = 0.03f;
     private float interet = 0;
