@@ -3,10 +3,12 @@ package Compte;
 import Personne.*;
 import java.util.*;
 import Exceptions.*;
+import java.io.*;
 
 public class Banque {
+
     private String nom;
-    private final HashMap <String, Compte> comptes = new HashMap();
+    private final HashMap<String, Compte> comptes = new HashMap();
     CompteFactory compteFactory;
 
     public Banque(String nom, CompteFactory compteFactory) {
@@ -25,7 +27,7 @@ public class Banque {
     @Override
     public String toString() {
         String res = "";
-        for (Iterator<Compte>i = this.comptes.values().iterator();i.hasNext();) {
+        for (Iterator<Compte> i = this.comptes.values().iterator(); i.hasNext();) {
             res += i.next().toString() + "\n";
         }
 
@@ -42,10 +44,10 @@ public class Banque {
 
     public void majInteretsComptes() {
         Compte compte;
-        for (Iterator<Compte>i = this.comptes.values().iterator();i.hasNext();) {
+        for (Iterator<Compte> i = this.comptes.values().iterator(); i.hasNext();) {
             compte = i.next();
             if (compte instanceof CompteEpargne) {
-                ((CompteEpargne)compte).calculInteret();
+                ((CompteEpargne) compte).calculInteret();
             }
         }
     }
@@ -63,5 +65,26 @@ public class Banque {
         } else {
             throw new InvalidSuppressionException("Ce compte n'existe pas.\n");
         }
+    }
+
+    public void sauvegarderComptes(String filename) throws FileNotFoundException, IOException {
+        File f = new File(filename);
+        FileWriter fw = new FileWriter(f);
+        fw.write(this.toString());
+        fw.close();
+    }
+
+    public String restituerComptes(String filename) throws FileNotFoundException, IOException {
+        String output = "";
+        InputStream ips = new FileInputStream(filename);
+        InputStreamReader ipsr = new InputStreamReader(ips);
+        BufferedReader br = new BufferedReader(ipsr);
+        String ligne;
+        while ((ligne = br.readLine()) != null) {
+            output += ligne + "\n";
+        }
+        br.close();
+
+        return output;
     }
 }
