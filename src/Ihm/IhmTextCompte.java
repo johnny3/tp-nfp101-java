@@ -65,11 +65,6 @@ public class IhmTextCompte {
         IhmTextException err = new IhmTextException(ex);
         throw err;
     }
-
-    public static void ecrireException(Throwable ex) {
-        System.out.println(ex.toString());
-        ex.printStackTrace(System.err);
-    }
 }
 
 class IhmTextException extends RuntimeException {
