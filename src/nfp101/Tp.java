@@ -6,6 +6,7 @@ import Ihm.IhmTextCompte;
 import Exceptions.*;
 import Operations.*;
 import java.text.SimpleDateFormat;
+import java.io.*;
 
 public class Tp {
 
@@ -46,7 +47,13 @@ public class Tp {
             reponse = IhmTextCompte.lireInt();
             switch (reponse) {
                 case 1: {
-                    System.out.println(banque.toString());
+                    try {
+                        System.out.println(banque.restituerComptes("comptes.txt"));
+                    } catch (FileNotFoundException e) {
+                        System.out.println("erreur lecture de fichier " + e.getMessage() + "ou aucun compte créé");
+                    } catch (IOException e) {
+                        System.out.println(e.toString());
+                    }
                     break;
                 }
                 case 2: {
@@ -108,6 +115,15 @@ public class Tp {
                         }
 
                         compte = banque.creerCompte(typeCompte, numCompte, solde, proprietaire, decouvertAutorise, tauxInterets);
+
+                        try {
+                            banque.sauvegarderComptes("comptes.txt");
+                        } catch (FileNotFoundException e) {
+                            System.out.println("erreur création de fichier " + e.getMessage());
+                            System.exit(-1);
+                        } catch (IOException exception) {
+                            System.out.println("Erreur lors de la lecture : " + exception.getMessage());
+                        }
 
                         System.out.println("Création réussie du " + compte.toString() + "\n");
                     } else {
@@ -226,7 +242,6 @@ public class Tp {
                     }
                     break;
                 }
-
                 case 10: {
                     System.out.println("A bientôt");
                 }
