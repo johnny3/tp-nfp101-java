@@ -26,8 +26,8 @@ public class Tp {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         ProprietaireInterface personne1 = new Personne("nomHomme", "prenomHomme", "homme@cnam.fr", "12/05/1980");
         ProprietaireInterface personne2 = new Personne("nomFemme", "prenomFemme", "femme@cnam.fr", "04/07/1980");
-        ProprietaireInterface societe1 = new Societe("nomSociete1", "adresseSociete1");
-        ProprietaireInterface societe2 = new Societe("nomSociete2", "adresseSociete2");
+        ProprietaireInterface societe1 = new Societe("nomSociete1", "adresseSociete1", 12345678912345L);
+        ProprietaireInterface societe2 = new Societe("nomSociete2", "adresseSociete2", 98765432112345L);
         CompteFactory compteFactory = new CompteFactory();
         Banque banque = new Banque("banque", compteFactory);
 

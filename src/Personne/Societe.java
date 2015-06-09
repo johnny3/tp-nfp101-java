@@ -1,13 +1,15 @@
 package Personne;
 
-public class Societe implements ProprietaireInterface<Integer, String> {
+public class Societe implements ProprietaireInterface<Long, String> {
 
     private String adresse;
     private String nom;
+    private long siret;
 
-    public Societe(String nom, String adresse) {
+    public Societe(String nom, String adresse, Long siret) {
         this.nom = nom;
         this.adresse = adresse;
+        this.siret = siret;
     }
 
     public String getNom() {
@@ -18,9 +20,17 @@ public class Societe implements ProprietaireInterface<Integer, String> {
         this.nom = nom;
     }
 
+    public long getSiret() {
+        return siret;
+    }
+
+    public void setSiret(int siret) {
+        this.siret = siret;
+    }
+
     @Override
-    public Integer getIdentifiant() {
-        return 123;
+    public Long getIdentifiant() {
+        return this.siret;
     }
 
     @Override
