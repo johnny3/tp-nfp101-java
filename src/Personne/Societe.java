@@ -1,6 +1,8 @@
 package Personne;
 
-public class Societe implements ProprietaireInterface<Long, String> {
+import java.io.*;
+
+public class Societe implements ProprietaireInterface<Long, String>, Serializable {
 
     private String adresse;
     private String nom;

@@ -32,7 +32,7 @@ public class Tp {
         CompteFactory compteFactory = new CompteFactory();
         Banque banque = new Banque("banque", compteFactory);
 
-        while (reponse != 10) {
+        while (reponse != 11) {
             System.out.println("1:affichage des comptes");
             System.out.println("2:création d'un compte");
             System.out.println("3:créditer un compte");
@@ -42,18 +42,13 @@ public class Tp {
             System.out.println("7:suppression d'un compte");
             System.out.println("8:mise à jour des intérêts");
             System.out.println("9:Voir les opérations d'un compte");
-            System.out.println("10:fin");
+            System.out.println("10:Restituer comptes");
+            System.out.println("11:fin");
 
             reponse = IhmTextCompte.lireInt();
             switch (reponse) {
                 case 1: {
-                    try {
-                        System.out.println(banque.restituerComptes("comptes.txt"));
-                    } catch (FileNotFoundException e) {
-                        System.out.println("erreur lecture de fichier " + e.getMessage() + "ou aucun compte créé");
-                    } catch (IOException e) {
-                        System.out.println(e.toString());
-                    }
+                    System.out.println(banque.toString());
                     break;
                 }
                 case 2: {
@@ -243,6 +238,18 @@ public class Tp {
                     break;
                 }
                 case 10: {
+                    try {
+                        banque.restituerComptes("comptes.txt");
+                    } catch (ClassNotFoundException e1) {
+                        System.out.println(e1.getMessage());
+                    } catch (FileNotFoundException e2) {
+                        System.out.println("erreur lecture de fichier " + e2.getMessage() + "ou aucun compte créé");
+                    } catch (IOException e3) {
+                        System.out.println(e3.toString());
+                    }
+                    break;
+                }
+                case 11: {
                     System.out.println("A bientôt");
                 }
 

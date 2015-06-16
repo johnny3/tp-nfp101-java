@@ -5,9 +5,10 @@ import Personne.*;
 import Journal.Journal;
 import Operations.*;
 import java.util.*;
+import java.io.*;
 import Exceptions.*;
 
-public class Compte implements CompteInterface {
+public class Compte implements CompteInterface, Serializable {
 
     protected String numero;
     protected float solde = 0;

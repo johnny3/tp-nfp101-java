@@ -5,11 +5,13 @@
  */
 package Journal;
 
+import java.io.Serializable;
+
 /**
  *
  * @author john
  */
-public class Journal {
+public class Journal implements Serializable {
 
     private String logError = "";
 

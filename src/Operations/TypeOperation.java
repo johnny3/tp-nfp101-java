@@ -1,3 +1,5 @@
 package Operations;
 
-public enum TypeOperation { credit, debit }
+import java.io.Serializable;
+
+public enum TypeOperation implements Serializable { credit, debit }

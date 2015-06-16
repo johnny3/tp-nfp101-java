@@ -8,12 +8,13 @@ import java.io.*;
 public class Banque {
 
     private String nom;
-    private final HashMap<String, Compte> comptes = new HashMap();
+    private HashMap<String, Compte> comptes;
     CompteFactory compteFactory;
 
     public Banque(String nom, CompteFactory compteFactory) {
         this.nom = nom;
         this.compteFactory = compteFactory;
+        this.comptes = new HashMap();
     }
 
     public String getNom() {
@@ -68,23 +69,19 @@ public class Banque {
     }
 
     public void sauvegarderComptes(String filename) throws FileNotFoundException, IOException {
-        File f = new File(filename);
-        FileWriter fw = new FileWriter(f);
-        fw.write(this.toString());
-        fw.close();
+        FileOutputStream ficSortie;
+        ObjectOutputStream oSortie;
+        ficSortie = new FileOutputStream(filename);
+        oSortie = new ObjectOutputStream(ficSortie);
+        oSortie.writeObject(this.comptes);
+        oSortie.close();
     }
 
-    public String restituerComptes(String filename) throws FileNotFoundException, IOException {
-        String output = "";
-        InputStream ips = new FileInputStream(filename);
-        InputStreamReader ipsr = new InputStreamReader(ips);
-        BufferedReader br = new BufferedReader(ipsr);
-        String ligne;
-        while ((ligne = br.readLine()) != null) {
-            output += ligne + "\n";
-        }
-        br.close();
-
-        return output;
+    public void restituerComptes(String filename) throws FileNotFoundException, ClassNotFoundException, IOException {
+        FileInputStream ficEntree;
+        ObjectInputStream oEntree;
+        ficEntree = new FileInputStream(filename);
+        oEntree = new ObjectInputStream(ficEntree);
+        this.comptes = (HashMap<String, Compte>) oEntree.readObject();
     }
 }

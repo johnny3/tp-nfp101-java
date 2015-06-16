@@ -5,10 +5,11 @@
  */
 package Operations;
 
+import java.io.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
-public class Operation {
+public class Operation implements Serializable {
 
     private final TypeOperation type;
     private final float montant;

@@ -1,10 +1,11 @@
 package Personne;
 
 import java.util.*;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class Personne implements ProprietaireInterface<String, String> {
+public class Personne implements ProprietaireInterface<String, String>, Serializable {
 
     private String prenom;
     private String email;
